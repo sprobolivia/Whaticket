@@ -138,15 +138,6 @@ const reducer = (state, action) => {
     return [...state];
   }
 
-  if (action.type === "UPDATE_TICKET_PRESENCE") {
-    const data = action.payload;
-    const ticketIndex = state.findIndex((t) => t.id === data.ticketId);
-    if (ticketIndex !== -1) {
-      state[ticketIndex].presence = data.presence;
-    }
-    return [...state];
-  }
-
   if (action.type === "DELETE_TICKET") {
     const ticketId = action.payload;
     const ticketIndex = state.findIndex((t) => t.id === ticketId);
@@ -269,13 +260,6 @@ const TicketsListCustom = (props) => {
           payload: data.ticket,
         });
       }
-    });
-
-    socket.on(`company-${companyId}-presence`, (data) => {
-      dispatch({
-        type: "UPDATE_TICKET_PRESENCE",
-        payload: data,
-      });
     });
 
     socket.on(`company-${companyId}-contact`, (data) => {
